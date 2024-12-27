@@ -8,6 +8,8 @@ class Dokter extends CI_Controller {
         $this->load->model('Dokter_model');  // Memuat model Dokter_model
         $this->load->helper('url');
         $this->load->library('form_validation');
+        $this->load->model('Daftar_poli_model');
+        $this->load->model('Jadwal_periksa_model');
     }
 
     // Fungsi untuk menampilkan semua dokter
@@ -74,13 +76,30 @@ class Dokter extends CI_Controller {
                 'message' => 'Dokter tidak ditemukan'
             ]);
         }
-    }
+    }    
 
-    // Fungsi untuk memperbarui data dokter
     public function edit() {
+        // Periksa apakah request datang melalui AJAX
         if ($this->input->is_ajax_request()) {
             $id = $this->input->post('id');
-            
+    
+            // Validasi apakah ID kosong
+            if (empty($id)) {
+                echo json_encode(['status' => 'error', 'message' => 'ID dokter tidak valid.']);
+                return;
+            }
+    
+            // Validasi input data
+            $this->form_validation->set_rules('nama', 'Nama', 'required');
+            $this->form_validation->set_rules('alamat', 'Alamat', 'required');
+            $this->form_validation->set_rules('no_hp', 'No HP', 'required|numeric');
+            $this->form_validation->set_rules('id_poli', 'Poli', 'required');
+    
+            if ($this->form_validation->run() == FALSE) {
+                echo json_encode(['status' => 'error', 'message' => validation_errors()]);
+                return;
+            }
+    
             // Siapkan data yang akan diupdate
             $data = array(
                 'nama' => $this->input->post('nama'),
@@ -88,20 +107,25 @@ class Dokter extends CI_Controller {
                 'no_hp' => $this->input->post('no_hp'),
                 'id_poli' => $this->input->post('id_poli')
             );
-
-            // Jika password diinputkan, maka ubah password
+    
+            // Periksa apakah password baru dimasukkan
             $password = $this->input->post('password');
             if (!empty($password)) {
-                $data['password'] = password_hash($password, PASSWORD_DEFAULT); // Update password jika diisi
+                $data['password'] = password_hash($password, PASSWORD_DEFAULT);
             }
-
+    
+            // Perbarui data dokter
             if ($this->Dokter_model->update_dokter($id, $data)) {
                 echo json_encode(['status' => 'success', 'message' => 'Data dokter berhasil diperbarui.']);
             } else {
                 echo json_encode(['status' => 'error', 'message' => 'Terjadi kesalahan, gagal memperbarui data.']);
             }
+        } else {
+            // Jika bukan request AJAX
+            echo json_encode(['status' => 'error', 'message' => 'Permintaan tidak valid.']);
         }
     }
+    
 
     // Fungsi untuk menghapus dokter (AJAX)
     public function hapus($id) {
@@ -122,4 +146,7 @@ class Dokter extends CI_Controller {
         $poli = $this->Dokter_model->get_all_poli();
         echo json_encode($poli);
     }
+
+    
+    
 }

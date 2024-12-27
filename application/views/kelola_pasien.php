@@ -71,16 +71,16 @@
         <tr><td colspan="7" class="text-center">Tidak ada data pasien.</td></tr>
     <?php else: ?>
         <?php foreach ($pasien as $p): ?>
-            <tr id="pasien_<?php echo $p->id; ?>">
-                <td><?php echo $p->no; ?></td> <!-- Menampilkan nomor urut -->
-                <td><?php echo $p->nama; ?></td>
-                <td><?php echo $p->alamat; ?></td>
-                <td><?php echo $p->no_ktp; ?></td>
-                <td><?php echo $p->no_hp; ?></td>
-                <td><?php echo $p->no_rm; ?></td>
+            <tr id="pasien_<?php echo $p['id']; ?>">
+                <td><?php echo $p['no']; ?></td> <!-- Menampilkan nomor urut -->
+                <td><?php echo $p['nama']; ?></td>
+                <td><?php echo $p['alamat']; ?></td>
+                <td><?php echo $p['no_ktp']; ?></td>
+                <td><?php echo $p['no_hp']; ?></td>
+                <td><?php echo $p['no_rm']; ?></td>
                 <td>
-                    <button class="btn btn-warning btn-sm" onclick="editPasien(<?php echo $p->id; ?>)">Edit</button>
-                    <button class="btn btn-danger btn-sm" onclick="hapusPasien(<?php echo $p->id; ?>)">Hapus</button>
+                    <button class="btn btn-warning btn-sm" onclick="editPasien(<?php echo $p['id']; ?>)">Edit</button>
+                    <button class="btn btn-danger btn-sm" onclick="hapusPasien(<?php echo $p['id']; ?>)">Hapus</button>
                 </td>
             </tr>
         <?php endforeach; ?>

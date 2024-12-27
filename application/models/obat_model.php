@@ -35,4 +35,10 @@ class Obat_model extends CI_Model {
     public function delete_obat($id) {
         return $this->db->delete('obat', ['id' => $id]);
     }
+
+    // Fungsi untuk mendapatkan harga obat berdasarkan ID
+    public function get_harga_obat($id_obat) {
+        $obat = $this->db->get_where('obat', ['id' => $id_obat])->row();
+        return ($obat) ? $obat->harga : 0;  // Menghindari error jika obat tidak ditemukan
+    }
 }

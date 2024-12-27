@@ -8,6 +8,7 @@ class Poli extends CI_Controller {
         parent::__construct();
         // Load model Poli_model
         $this->load->model('Poli_model');
+        $this->load->model('Dokter_model');
     }
 
     // Fungsi untuk menampilkan halaman kelola poli
@@ -69,10 +70,29 @@ class Poli extends CI_Controller {
         }
     }
 
-    // Fungsi untuk menghapus poli
-    public function hapus($id)
-    {
-        $this->Poli_model->delete_poli($id);
-        echo json_encode(['status' => 'success']);
+    public function hapus($id) {
+        // Pastikan ada dokter yang terkait dengan poli ini
+        $this->load->model('Dokter_model');
+        $dokterTerkait = $this->Dokter_model->getDokterByPoli($id);
+    
+        if ($dokterTerkait) {
+            // Jika ada dokter terkait, hapus atau update dokter terlebih dahulu
+            // Anda bisa memilih untuk menghapus atau hanya mengubah ID poli menjadi null
+            foreach ($dokterTerkait as $dokter) {
+                $this->Dokter_model->updatePoliToNull($dokter['id']);
+            }
+        }
+    
+        // Menghapus poli setelah memastikan tidak ada dokter yang terkait
+        $this->load->model('Poli_model');
+        $result = $this->Poli_model->hapusPoli($id);
+    
+        if ($result) {
+            echo json_encode(['status' => 'success']);
+        } else {
+            echo json_encode(['status' => 'error', 'message' => 'Gagal menghapus data poli.']);
+        }
     }
+    
+    
 }

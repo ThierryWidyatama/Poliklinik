@@ -54,6 +54,9 @@
             <div class="input-group-text">
                 <span class="fas fa-lock"></span>
             </div>
+            <div class="input-group-text">
+                <span class="fas fa-eye" id="togglePassword" style="cursor: pointer;"></span>
+            </div>
         </div>
     </div>
 
@@ -130,6 +133,16 @@
         }
     });
 
+    // Toggle Password Visibility
+    document.getElementById('togglePassword').addEventListener('click', function () {
+        const passwordField = document.getElementById('password');
+        const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
+        passwordField.setAttribute('type', type);
+
+        // Toggle the eye icon class
+        this.classList.toggle('fa-eye');
+        this.classList.toggle('fa-eye-slash');
+    });
 </script>
 
 </body>

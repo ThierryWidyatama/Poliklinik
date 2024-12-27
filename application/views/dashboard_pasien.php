@@ -68,15 +68,9 @@
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu">
           <li class="nav-item">
-            <a href="#" class="nav-link" id="kelolapasien">
+            <a href="#" class="nav-link" id="daftar-poli">
               <i class="nav-icon far fa-calendar-alt"></i>
-              <p>Dashboard</p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link" id="keloladokter">
-              <i class="nav-icon far fa-calendar-alt"></i>
-              <p>Poli</p>
+              <p>Daftar Poli</p>
             </a>
           </li>
         </ul>
@@ -116,30 +110,11 @@
 <script src="<?= base_url('assets/dist/js/adminlte.min.js'); ?>"></script>
 
 <script>
-    // Fungsi untuk load konten menggunakan AJAX - Kelola Pasien
-    $('#kelola-pasien').click(function() {
-        $('#main-content').html('<h3>Memuat data pasien...</h3>'); // Menampilkan loading
-
-        // Gunakan AJAX untuk mengubah konten
-        $.ajax({
-            url: '<?php echo site_url("dashboard/load_kelola_pasien"); ?>', // URL untuk mengambil data pasien
-            method: 'GET',
-            success: function(response) {
-                $('#main-content').html(response); // Ganti konten dengan data dari server
-            },
-            error: function() {
-                $('#main-content').html('<p>Error saat memuat data. Coba lagi.</p>');
-            }
-        });
-    });
-
-    // Fungsi untuk load konten menggunakan AJAX - Kelola Poli
-    $('#kelola-poli').click(function() {
+    $('#daftar-poli').click(function() {
         $('#main-content').html('<h3>Memuat data poli...</h3>'); // Menampilkan loading
 
-        // Gunakan AJAX untuk mengubah konten
         $.ajax({
-            url: '<?php echo site_url("dashboard/load_kelola_poli"); ?>', // URL untuk mengambil data poli
+            url: '<?= site_url("dashboard_pasien/load_kelola_poli"); ?>',
             method: 'GET',
             success: function(response) {
                 $('#main-content').html(response); // Ganti konten dengan data dari server
@@ -150,6 +125,7 @@
         });
     });
 </script>
+
 
 </body>
 </html>

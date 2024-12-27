@@ -50,7 +50,6 @@
             <thead>
                 <tr>
                     <th>No</th> <!-- Kolom nomor urut -->
-                    <th>ID</th>
                     <th>Nama Obat</th>
                     <th>Kemasan</th>
                     <th>Harga</th>
@@ -64,7 +63,6 @@
                     <?php foreach ($obat as $key => $o): ?>
                         <tr id="obat_<?php echo $o->id; ?>">
                             <td><?php echo $key + 1; ?></td> <!-- Menambahkan nomor urut -->
-                            <td><?php echo $o->id; ?></td>
                             <td><?php echo $o->nama_obat; ?></td>
                             <td><?php echo $o->kemasan; ?></td>
                             <td><?php echo $o->harga; ?></td>

@@ -58,5 +58,6 @@ $route['dashboard_dokter'] = 'dashboard_dokter';
 $route['pasien/register'] = 'pasien/register';
 
 
+
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;

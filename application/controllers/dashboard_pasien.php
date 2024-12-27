@@ -9,6 +9,8 @@ class Dashboard_pasien extends CI_Controller {
         $this->load->helper('url');  // Memuat URL helper
         $this->load->model('Poli_model');  // Memuat model Poli
         $this->load->model('Dokter_model');  // Memuat model Dokter
+        $this->load->model('Jadwal_periksa_model');  // Memuat model Jadwal Periksa
+        $this->load->model('Daftar_poli_model');  // Memuat model Daftar Poli
 
         // Periksa session login
         if (!$this->session->userdata('logged_in')) {
@@ -17,33 +19,30 @@ class Dashboard_pasien extends CI_Controller {
     }
 
     public function index() {
-        // Menampilkan dashboard admin
-        $data['dokter'] = $this->Dokter_model->get_all_dokter(); // Menambahkan data dokter
+        // Pastikan $data diinisialisasi
+        $data = [];
+
+        // Ambil data pasien untuk ditampilkan di dashboard (opsional)
+        $data['nama_pasien'] = $this->session->userdata('nama');  // Nama pasien dari session
+
+        // Menampilkan dashboard pasien
         $this->load->view('dashboard_pasien', $data);
     }
 
-    // Fungsi untuk memuat konten Kelola Pasien
-    public function load_kelola_pasien() {
-        $this->load->model('Pasien_model');
-        $data['pasien'] = $this->Pasien_model->get_all_pasien();
-        $this->load->view('kelola_pasien', $data);
-    }
-
-    // Fungsi untuk memuat konten Kelola Poli
+    // Method untuk memuat halaman daftar poli menggunakan AJAX
     public function load_kelola_poli() {
-        $data['poli'] = $this->Poli_model->get_all_poli();
-        $this->load->view('kelola_poli', $data);
+        $data = [];
+        $id_pasien = $this->session->userdata('id');
+        $data['no_rm'] = $this->session->userdata('no_rm');
+        $data['poli'] = $this->Poli_model->get_all_poli(); // Ambil data poli
+        $data['riwayat'] = $this->Daftar_poli_model->get_riwayat_by_pasien($id_pasien);
+
+        $this->load->view('daftar_poli', $data);
     }
 
-    public function load_kelola_obat() {
-        $this->load->model('Obat_model');
-        $data['obat'] = $this->Obat_model->get_all_obat();
-        $this->load->view('kelola_obat', $data);
-    }
-
-    // Fungsi untuk memuat konten Kelola Dokter
-    public function load_kelola_dokter() {
-        $data['dokter'] = $this->Dokter_model->get_all_dokter(); // Mengambil semua data dokter
-        $this->load->view('kelola_dokter', $data);
-    }
+    public function get_jadwal_by_poli() {
+        $id_poli = $this->input->post('id_poli');
+        $jadwal = $this->Jadwal_periksa_model->get_jadwal_by_poli($id_poli);
+        echo json_encode($jadwal);
+    }    
 }

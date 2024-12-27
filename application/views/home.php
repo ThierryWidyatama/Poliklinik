@@ -11,18 +11,35 @@
         body {
             font-family: 'Arial', sans-serif;
         }
+
         /* Gambar Latar Belakang dengan Efek Parallax */
         .hero-section {
-            background: url('https://via.placeholder.com/1920x1080?text=') center center no-repeat;
+            background: url('<?= base_url('assets/dist/img/medic.jpg'); ?>') center center no-repeat;
             background-size: cover;
             height: 100vh;
-            color: white;
             display: flex;
             flex-direction: column;
             justify-content: center;
             text-align: center;
             position: relative;
             background-attachment: fixed;
+            overflow: hidden;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.6);
+        }
+
+        .hero-section h1, .hero-section p {
+            color: white;
+            z-index: 1;
+            position: relative;
         }
 
         .hero-section h1 {
@@ -35,56 +52,43 @@
             margin-bottom: 30px;
         }
 
-        .navbar {
-            position: fixed;
-            width: 100%;
-            top: 0;
-            left: 0;
-            z-index: 999;
-            background-color: rgba(255, 255, 255, 0.9);
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        .btn-hero {
+            font-size: 1.2rem;
+            padding: 10px 30px;
+            margin-top: 20px;
+            border-radius: 30px;
+            z-index: 1;
+            position: relative;
         }
 
-        .navbar .navbar-brand {
+        .section {
+            padding: 60px 0;
+        }
+
+        .features-section {
+            background-color: #f8f9fa;
+        }
+
+        .features-section .feature {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .features-section .feature i {
+            font-size: 3rem;
+            color: #007bff;
+        }
+
+        .features-section .feature h4 {
+            margin-top: 20px;
             font-weight: bold;
         }
 
-        .card-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-        }
-
-        .card {
-            border: none;
-            border-radius: 10px;
-            padding: 30px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease-in-out;
-        }
-
-        .card:hover {
-            transform: translateY(-10px);
-        }
-
-        .card-title {
-            font-size: 1.8rem;
-            margin-bottom: 20px;
-        }
-
-        .btn-custom {
-            width: 100px;
-            font-size: 1.2rem;
-            border-radius:200px;
-        }
-
         .footer {
-            background-color: #f8f9fa;
+            background-color: #343a40;
+            color: white;
             padding: 20px 0;
             text-align: center;
-            position: relative;
-            bottom: 0;
-            width: 100%;
         }
 
         /* Animasi fade-in untuk konten */
@@ -100,27 +104,60 @@
                 opacity: 1;
             }
         }
-
     </style>
 </head>
 <body>
 
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-light">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
             <a class="navbar-brand" href="#">Poliklinik</a>
-            <div class="ml-auto">
-                <a href="<?= site_url('login') ?>" class="btn btn-primary btn-custom">Login</a>
-                <a href="<?= site_url('pasien/register') ?>" class="btn btn-outline-primary btn-custom ml-2">Register</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto"> 
+                    <li class="nav-item">
+                        <a href="<?= site_url('login') ?>" class="btn btn-primary btn-custom">Login</a>
+                    </li>
+                    <li class="nav-item ml-2">
+                        <a href="<?= site_url('pasien/register') ?>" class="btn btn-outline-primary btn-custom">Register</a>
+                    </li>
+                </ul>
             </div>
         </div>
     </nav>
 
     <!-- Hero Section -->
     <div class="hero-section fade-in">
-        <h1>Selamat Datang di Poliklinik Kami</h1>
-        <p>Solusi Kesehatan Terpercaya di Tangan Anda</p>
+        <div class="container">
+            <h1>Selamat Datang di Poliklinik Kami</h1>
+            <p>Solusi Kesehatan Terpercaya di Tangan Anda</p>
+        </div>
     </div>
+
+    <!-- Features Section -->
+    <section id="features" class="features-section section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 feature">
+                    <i class="fas fa-user-md"></i>
+                    <h4>Dokter Berpengalaman</h4>
+                    <p>Kami memiliki tim dokter berpengalaman di bidangnya.</p>
+                </div>
+                <div class="col-md-4 feature">
+                    <i class="fas fa-hospital"></i>
+                    <h4>Fasilitas Lengkap</h4>
+                    <p>Dilengkapi dengan fasilitas modern untuk kenyamanan Anda.</p>
+                </div>
+                <div class="col-md-4 feature">
+                    <i class="fas fa-clock"></i>
+                    <h4>Pelayanan Cepat</h4>
+                    <p>Proses yang cepat untuk kebutuhan kesehatan Anda.</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <!-- Footer -->
     <div class="footer">

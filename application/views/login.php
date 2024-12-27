@@ -46,6 +46,11 @@
                                 <span class="fas fa-lock"></span>
                             </div>
                         </div>
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-eye" id="togglePassword" style="cursor: pointer;"></span>
+                            </div>
+                        </div>
                     </div>
                     
                     <div class="row">
@@ -71,5 +76,18 @@
     <script src="<?= base_url('assets/plugins/bootstrap/js/bootstrap.bundle.min.js'); ?>"></script>
     <!-- AdminLTE App -->
     <script src="<?= base_url('assets/dist/js/adminlte.min.js'); ?>"></script>
+    
+    <!-- Custom Script for Toggle Password Visibility -->
+    <script>
+        document.getElementById('togglePassword').addEventListener('click', function () {
+            const passwordField = document.getElementById('password');
+            const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordField.setAttribute('type', type);
+
+            // Toggle the eye icon class
+            this.classList.toggle('fa-eye');
+            this.classList.toggle('fa-eye-slash');
+        });
+    </script>
 </body>
 </html>

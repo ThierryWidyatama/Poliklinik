@@ -75,6 +75,26 @@
         });
     }
 
+    // Fungsi untuk menghapus poli
+function hapusPoli(id) {
+    if (confirm('Apakah Anda yakin ingin menghapus poli ini?')) {
+        $.ajax({
+            url: '<?php echo site_url('poli/hapus'); ?>/' + id, // Menggunakan URL untuk menghapus data poli berdasarkan ID
+            type: 'POST',
+            dataType: 'json',
+            success: function(response) {
+                if (response.status == 'success') {
+                    alert('Poli berhasil dihapus');
+                    $('#poli-' + id).remove(); // Menghapus baris tabel yang sesuai dengan ID poli
+                } else {
+                    alert('Error: ' + response.message);
+                }
+            }
+        });
+    }
+}
+
+
     // Fungsi untuk menutup form
     $('#btnTutupForm').click(function() {
         $('#poliId').val('');

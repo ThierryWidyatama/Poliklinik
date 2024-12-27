@@ -71,5 +71,17 @@ class Dokter_model extends CI_Model {
         }
         return null; // Jika autentikasi gagal
     }
+    public function getDokterByPoli($id_poli) {
+        // Ambil dokter berdasarkan id_poli
+        $this->db->where('id_poli', $id_poli);
+        $query = $this->db->get('dokter'); // Asumsikan tabel dokter
+    
+        if ($query->num_rows() > 0) {
+            return $query->result_array(); // Mengembalikan array data dokter
+        } else {
+            return []; // Mengembalikan array kosong jika tidak ada dokter
+        }
+    }
+    
 }
 ?>

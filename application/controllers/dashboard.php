@@ -28,7 +28,7 @@ class Dashboard extends CI_Controller {
     
         // Menambahkan nomor urut pada data pasien
         foreach ($data['pasien'] as $key => $pasien) {
-            $data['pasien'][$key]->no = $key + 1; // Menambahkan kolom 'no' untuk nomor urut
+            $data['pasien'][$key]['no'] = $key + 1; // Gunakan format array asosiatif
         }
     
         $this->load->view('kelola_pasien', $data);

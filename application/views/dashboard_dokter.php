@@ -68,31 +68,25 @@
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu">
           <li class="nav-item">
-            <a href="#" class="nav-link" id="kelolapasien">
-              <i class="nav-icon far fa-calendar-alt"></i>
-              <p>Dashboard</p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link" id="keloladokter">
+            <a href="#" class="nav-link" id="jadwal-periksa">
               <i class="nav-icon far fa-calendar-alt"></i>
               <p>Jadwal Periksa</p>
             </a>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link" id="kelolapoli">
+            <a href="#" class="nav-link" id="memeriksa-pasien">
               <i class="nav-icon fas fa-book"></i>
               <p>Memeriksa Pasien</p>
             </a>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link" id="kelolaobat">
+            <a href="#" class="nav-link" id="riwayat-pasien">
               <i class="nav-icon fas fa-book"></i>
               <p>Riwayat Pasien</p>
             </a>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link" id="kelolaobat">
+            <a href="#" class="nav-link" id="profil">
               <i class="nav-icon fas fa-book"></i>
               <p>Profil</p>
             </a>
@@ -134,73 +128,71 @@
 <script src="<?= base_url('assets/dist/js/adminlte.min.js'); ?>"></script>
 
 <script>
-    // Fungsi untuk load konten menggunakan AJAX - Kelola Pasien
-    $('#kelola-pasien').click(function() {
-        $('#main-content').html('<h3>Memuat data pasien...</h3>'); // Menampilkan loading
+    $('#jadwal-periksa').click(function() {
+    $('#main-content').html('<h3>Memuat data jadwal...</h3>'); // Menampilkan loading
 
-        // Gunakan AJAX untuk mengubah konten
+    // Gunakan AJAX untuk mengubah konten
+    $.ajax({
+        url: '<?php echo site_url("dashboard_dokter/jadwal_periksa"); ?>', // URL untuk memuat data jadwal
+        method: 'GET',
+        success: function(response) {
+            $('#main-content').html(response); // Ganti konten dengan data dari server
+        },
+        error: function() {
+            $('#main-content').html('<p>Error saat memuat data. Coba lagi.</p>');
+        }
+    });
+});
+
+    $('#memeriksa-pasien').click(function() {
+        $('#main-content').html('<h3>Memuat data pasien...</h3>'); // Loading message
+
         $.ajax({
-            url: '<?php echo site_url("dashboard/load_kelola_pasien"); ?>', // URL untuk mengambil data pasien
+            url: '<?= site_url("dashboard_dokter/pasien_periksa"); ?>', // URL untuk data pasien
             method: 'GET',
             success: function(response) {
-                $('#main-content').html(response); // Ganti konten dengan data dari server
+                $('#main-content').html(response); // Load content
             },
             error: function() {
-                $('#main-content').html('<p>Error saat memuat data. Coba lagi.</p>');
+                $('#main-content').html('<p>Error saat memuat data pasien. Coba lagi.</p>');
             }
         });
     });
 
-    // Fungsi untuk load konten menggunakan AJAX - Kelola Poli
-    $('#kelola-poli').click(function() {
-        $('#main-content').html('<h3>Memuat data poli...</h3>'); // Menampilkan loading
+    $('#riwayat-pasien').click(function() {
+    $('#main-content').html('<h3>Memuat riwayat pasien...</h3>');
 
-        // Gunakan AJAX untuk mengubah konten
-        $.ajax({
-            url: '<?php echo site_url("dashboard/load_kelola_poli"); ?>', // URL untuk mengambil data poli
-            method: 'GET',
-            success: function(response) {
-                $('#main-content').html(response); // Ganti konten dengan data dari server
-            },
-            error: function() {
-                $('#main-content').html('<p>Error saat memuat data. Coba lagi.</p>');
-            }
-        });
+    $.ajax({
+        url: '<?= site_url("riwayat_pasien"); ?>',
+        method: 'GET',
+        success: function(response) {
+            $('#main-content').html(response);
+        },
+        error: function() {
+            $('#main-content').html('<p>Error saat memuat riwayat pasien. Coba lagi.</p>');
+        }
     });
+});
 
-    // Fungsi untuk load konten menggunakan AJAX - Kelola Obat
-    $('#kelola-obat').click(function() {
-        $('#main-content').html('<h3>Memuat data obat...</h3>'); // Menampilkan loading
+$('#profil').click(function() {
+    $('#main-content').html('<h3>Memuat profil dokter...</h3>');
 
-        // Gunakan AJAX untuk mengubah konten
-        $.ajax({
-            url: '<?php echo site_url("dashboard/load_kelola_obat"); ?>', // URL untuk mengambil data poli
-            method: 'GET',
-            success: function(response) {
-                $('#main-content').html(response); // Ganti konten dengan data dari server
-            },
-            error: function() {
-                $('#main-content').html('<p>Error saat memuat data. Coba lagi.</p>');
-            }
-        });
+    $.ajax({
+        url: '<?= site_url("dashboard_dokter/profil"); ?>',
+        method: 'GET',
+        success: function(response) {
+            $('#main-content').html(response);
+        },
+        error: function() {
+            $('#main-content').html('<p>Error saat memuat profil dokter. Coba lagi.</p>');
+        }
     });
+});
 
-    // Fungsi untuk load konten menggunakan AJAX - Kelola Dokter
-    $('#kelola-dokter').click(function() {
-        $('#main-content').html('<h3>Memuat data dokter...</h3>'); // Menampilkan loading
 
-        // Gunakan AJAX untuk mengubah konten
-        $.ajax({
-            url: '<?php echo site_url("dashboard/load_kelola_dokter"); ?>', // URL untuk mengambil data poli
-            method: 'GET',
-            success: function(response) {
-                $('#main-content').html(response); // Ganti konten dengan data dari server
-            },
-            error: function() {
-                $('#main-content').html('<p>Error saat memuat data. Coba lagi.</p>');
-            }
-        });
-    });
+
+
+
 </script>
 
 </body>
