@@ -69,3 +69,8 @@ Acknowledgement
 
 The CodeIgniter team would like to thank EllisLab, all the
 contributors to the CodeIgniter project and you, the CodeIgniter user.
+
+Cara untuk menggunakan website Poliklinik
+1. Buatlah database atas nama poliklinik
+2. Import databse yang sudah ada di file diatas
+3. Masuk ke VSCode, ubah bagian config.php di folder config sesuai localhost masing"
