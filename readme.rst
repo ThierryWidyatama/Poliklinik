@@ -11,6 +11,13 @@ you creatively focus on your project by minimizing the amount of code needed
 for a given task.
 
 *******************
+Cara untuk menggunakan website Poliklinik
+1. Buatlah database atas nama poliklinik
+2. Import databse yang sudah ada di file diatas
+3. Masuk ke VSCode, ubah bagian config.php di folder config sesuai localhost masing"
+*******************
+
+*******************
 Release Information
 *******************
 
@@ -69,8 +76,3 @@ Acknowledgement
 
 The CodeIgniter team would like to thank EllisLab, all the
 contributors to the CodeIgniter project and you, the CodeIgniter user.
-
-Cara untuk menggunakan website Poliklinik
-1. Buatlah database atas nama poliklinik
-2. Import databse yang sudah ada di file diatas
-3. Masuk ke VSCode, ubah bagian config.php di folder config sesuai localhost masing"
